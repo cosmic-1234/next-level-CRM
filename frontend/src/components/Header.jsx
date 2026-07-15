@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, User } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import api from '../api/axios';
 
 export default function Header({ title }) {
@@ -7,7 +7,6 @@ export default function Header({ title }) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
-    // Fetch critical logs/notifications (e.g. recent open tickets)
     api.get('/crm/tickets?status=open')
       .then(res => {
         if (res.data.success) {
@@ -19,7 +18,7 @@ export default function Header({ title }) {
           setNotifications(tickets);
         }
       })
-      .catch(err => console.error('Error loading header alerts', err));
+      .catch(() => {});
   }, []);
 
   return (
@@ -28,9 +27,10 @@ export default function Header({ title }) {
 
       <div className="crm-header-actions">
         <div style={{ position: 'relative' }}>
-          <button 
-            className="crm-notification-btn" 
+          <button
+            className="crm-notification-btn"
             onClick={() => setShowNotifications(!showNotifications)}
+            aria-label="Notifications"
           >
             <Bell size={20} />
             {notifications.length > 0 && <span className="crm-notification-dot" />}
@@ -41,16 +41,16 @@ export default function Header({ title }) {
               position: 'absolute',
               right: 0,
               top: '45px',
-              width: '280px',
+              width: 'min(280px, 90vw)',
               backgroundColor: 'var(--bg-card)',
               border: '1px solid var(--border-color)',
               borderRadius: '8px',
-              boxShadow: 'var(--shadow-md)',
+              boxShadow: 'var(--shadow-lg)',
               zIndex: 500,
               padding: '12px',
               color: 'var(--text-main)'
             }}>
-              <h4 style={{ fontSize: '14px', fontWeight: 600, borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '8px' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: 600, borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '8px', fontFamily: 'var(--font-heading)' }}>
                 Notifications ({notifications.length})
               </h4>
               {notifications.length === 0 ? (

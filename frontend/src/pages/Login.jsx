@@ -103,8 +103,16 @@ export default function Login() {
 
           <button 
             type="submit" 
-            className="crm-btn crm-btn-primary w-full justify-center"
-            style={{ padding: '12px 0' }}
+            className="crm-btn crm-btn-primary"
+            style={{ 
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              padding: '13px 24px',
+              marginTop: '8px'
+            }}
             disabled={submitting}
           >
             {submitting ? 'Authenticating...' : 'Sign In'}
