@@ -1,0 +1,739 @@
+/* ============================================================
+   NEXT LEVEL CRM — Master Bookstore Design System
+   ============================================================ */
+
+:root {
+  /* Cozy Cream, Library Oak & Gilding Gold Theme */
+  --bg-main: #F4ECE1;          /* Cozy Warm Parchment Paper */
+  --bg-sidebar: linear-gradient(185deg, #1C0F0A 0%, #281710 100%); /* Polished Dark Oak Bookshelf */
+  --bg-card: #FFFCF6;          /* Ivory white card stock */
+  --bg-card-hover: #FFFFFF;
+  --border-color: rgba(92, 67, 53, 0.18); /* Antique copper ink lines */
+  --text-main: #23120A;        /* Dark fountain pen ink */
+  --text-secondary: #5C4335;   /* Aged leather spine brown */
+  --text-muted: #8F7666;       /* Dust jacket shadow */
+  --text-green: #4D643E;       /* Vintage botanical green */
+
+  /* Curated Palette Tones */
+  --primary: #523525;          /* Classic leather spine */
+  --primary-hover: #2E1B11;    /* Deep pressed oak */
+  --primary-light: rgba(82, 53, 37, 0.05);
+  --danger: #B56B5C;           /* Wax Seal Rose */
+  --danger-light: rgba(181, 107, 92, 0.08);
+  --warning: #A68037;          /* Antique gold gilding */
+  --warning-light: rgba(166, 128, 55, 0.08);
+  --info: #A36B4E;             /* Aged library copper */
+  --info-light: rgba(163, 107, 78, 0.08);
+  --purple: #4D643E;           /* Sage leaf */
+  --purple-light: rgba(77, 100, 62, 0.08);
+
+  /* Typography */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+
+  /* Spacing */
+  --space-card-padding: 30px;
+
+  /* Radii & Shadows */
+  --radius-sm: 3px;            /* Classic book cover corners */
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(35, 18, 10, 0.03);
+  --shadow-md: 0 8px 30px -8px rgba(35, 18, 10, 0.08), 0 2px 6px rgba(35, 18, 10, 0.03);
+  --shadow-lg: 0 24px 48px -12px rgba(35, 18, 10, 0.12), 0 4px 10px rgba(35, 18, 10, 0.04);
+  --shadow-glow: 0 0 15px rgba(166, 128, 55, 0.15);
+  
+  /* Transitions */
+  --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ==================== RESET ==================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* ==================== LAYOUTS ==================== */
+.crm-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar (Mahogany Shelf Structure) */
+.crm-sidebar {
+  width: 270px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid rgba(250, 246, 238, 0.06);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: var(--transition);
+  box-shadow: 6px 0 30px rgba(0, 0, 0, 0.18);
+  z-index: 100;
+}
+
+.crm-sidebar-logo {
+  padding: 30px 24px;
+  font-family: var(--font-heading);
+  font-size: 23px;
+  font-weight: 700;
+  color: #FAF6EE;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(250, 246, 238, 0.06);
+  letter-spacing: 0.02em;
+}
+
+.crm-sidebar-logo svg {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.crm-sidebar-menu {
+  flex: 1;
+  padding: 24px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.crm-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  color: rgba(250, 246, 238, 0.6);
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.crm-menu-item svg {
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.crm-menu-item:hover {
+  background-color: rgba(250, 246, 238, 0.04);
+  color: #FAF6EE;
+  transform: translateX(4px);
+}
+
+.crm-menu-item:hover svg {
+  opacity: 1;
+}
+
+.crm-menu-item.active {
+  background-color: rgba(163, 107, 78, 0.18); /* Cozy copper highlight */
+  color: #FAF6EE;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 0 var(--warning); /* Gold vertical gilding line */
+}
+
+.crm-menu-item.active svg {
+  color: var(--warning);
+  opacity: 1;
+}
+
+.crm-sidebar-footer {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(250, 246, 238, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.crm-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crm-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background-color: var(--info);
+  border: 1px solid rgba(250, 246, 238, 0.15);
+  color: #FAF6EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.crm-user-info {
+  font-size: 13px;
+  max-width: 140px;
+}
+
+.crm-user-name {
+  font-weight: 600;
+  color: #FAF6EE;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crm-user-role {
+  color: rgba(250, 246, 238, 0.4);
+  font-size: 11px;
+}
+
+/* Content Area */
+.crm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.crm-header {
+  height: 75px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  background-color: rgba(255, 252, 247, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(35, 18, 10, 0.02);
+}
+
+.crm-header-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.01em;
+}
+
+.crm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.crm-notification-btn {
+  position: relative;
+  color: var(--text-secondary);
+  padding: 8px;
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.crm-notification-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--text-main);
+  border-color: rgba(92, 67, 53, 0.1);
+}
+
+.crm-notification-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--danger);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--bg-card);
+}
+
+.crm-body {
+  flex: 1;
+  padding: 36px;
+  overflow-y: auto;
+}
+
+/* ==================== CORE COMPONENTS ==================== */
+
+/* Cards & Containers (Book Leaf & Leather Bound aesthetic) */
+.crm-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: var(--space-card-padding);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  position: relative;
+}
+
+.crm-card::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px dashed rgba(143, 118, 102, 0.15); /* Framed catalog-card line */
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
+.crm-card:hover {
+  border-color: rgba(82, 53, 37, 0.4);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.crm-grid-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.crm-metric-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-left: 4px solid var(--primary); /* Framed card indexing strip */
+  padding-left: 24px !important;
+}
+
+.crm-metric-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(92, 67, 53, 0.1);
+}
+
+.crm-metric-val {
+  font-size: 26px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--text-main);
+}
+
+.crm-metric-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tables (Library Register style) */
+.crm-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.crm-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.crm-table th {
+  background-color: rgba(92, 67, 53, 0.04); /* Cozy paper wash */
+  padding: 18px 20px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1.5px solid var(--border-color);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.crm-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(92, 67, 53, 0.08);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.crm-table tr:last-child td {
+  border-bottom: none;
+}
+
+.crm-table tr:hover td {
+  background-color: rgba(92, 67, 53, 0.025);
+}
+
+/* Badges (Wax Seals / Curated Labels) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+}
+
+.badge-lead { background-color: rgba(163, 107, 78, 0.12); color: #A36B4E; border-color: rgba(163, 107, 78, 0.2); }
+.badge-active { background-color: rgba(77, 100, 62, 0.12); color: #4D643E; border-color: rgba(77, 100, 62, 0.2); }
+.badge-at-risk { background-color: rgba(166, 128, 55, 0.12); color: #A68037; border-color: rgba(166, 128, 55, 0.2); }
+.badge-churned { background-color: rgba(181, 107, 92, 0.12); color: #B56B5C; border-color: rgba(181, 107, 92, 0.2); }
+.badge-vip { background-color: rgba(82, 53, 37, 0.1); color: #523525; border: 1.5px solid rgba(82, 53, 37, 0.3); }
+
+/* Order / Rental Statuses */
+.badge-pending { background-color: rgba(166, 128, 55, 0.12); color: #A68037; border-color: rgba(166, 128, 55, 0.25); }
+.badge-approved { background-color: rgba(163, 107, 78, 0.12); color: #A36B4E; border-color: rgba(163, 107, 78, 0.25); }
+.badge-returned { background-color: rgba(77, 100, 62, 0.12); color: #4D643E; border-color: rgba(77, 100, 62, 0.25); }
+.badge-overdue { background-color: rgba(181, 107, 92, 0.12); color: #B56B5C; border-color: rgba(181, 107, 92, 0.25); }
+.badge-cancelled { background-color: rgba(143, 118, 102, 0.12); color: #8F7666; border-color: rgba(143, 118, 102, 0.25); }
+.badge-inactive { background-color: rgba(143, 118, 102, 0.12); color: #8F7666; border-color: rgba(143, 118, 102, 0.25); }
+
+.badge-low { background-color: rgba(143, 118, 102, 0.12); color: #8F7666; }
+.badge-medium { background-color: rgba(163, 107, 78, 0.12); color: #A36B4E; }
+.badge-high { background-color: rgba(166, 128, 55, 0.12); color: #A68037; }
+.badge-urgent { background-color: rgba(181, 107, 92, 0.12); color: #B56B5C; }
+
+.badge-open { background-color: rgba(181, 107, 92, 0.12); color: #B56B5C; border-color: rgba(181, 107, 92, 0.25); }
+.badge-in-progress { background-color: rgba(166, 128, 55, 0.12); color: #A68037; border-color: rgba(166, 128, 55, 0.25); }
+.badge-waiting { background-color: rgba(163, 107, 78, 0.12); color: #A36B4E; border-color: rgba(163, 107, 78, 0.25); }
+.badge-resolved { background-color: rgba(77, 100, 62, 0.12); color: #4D643E; border-color: rgba(77, 100, 62, 0.25); }
+.badge-closed { background-color: rgba(143, 118, 102, 0.12); color: #8F7666; }
+
+/* Buttons (Curated Bookstore style) */
+.crm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-full); /* Rounded library pill style */
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.crm-btn-primary {
+  background-color: var(--primary);
+  color: #FAF6EE;
+  box-shadow: 0 4px 12px rgba(82, 53, 37, 0.18);
+}
+.crm-btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(82, 53, 37, 0.28);
+}
+
+.crm-btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+.crm-btn-secondary:hover {
+  background-color: rgba(92, 67, 53, 0.04);
+  color: var(--text-main);
+  border-color: var(--primary);
+}
+
+.crm-btn-danger {
+  background-color: var(--danger);
+  color: #FAF6EE;
+  box-shadow: 0 4px 12px rgba(181, 107, 92, 0.18);
+}
+.crm-btn-danger:hover {
+  background-color: #A05244;
+  transform: translateY(-1px);
+}
+
+/* Inputs & Form Controls */
+.crm-form-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.crm-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.crm-input, .crm-select, .crm-textarea {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 11px 15px;
+  font-size: 14px;
+  color: var(--text-main);
+  transition: var(--transition);
+  width: 100%;
+}
+
+.crm-input:focus, .crm-select:focus, .crm-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(82, 53, 37, 0.08);
+  background-color: #ffffff;
+}
+
+/* Timeline (Vintage catalog index register) */
+.crm-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  padding-left: 24px;
+  border-left: 2px dashed var(--border-color);
+}
+
+.crm-timeline-item {
+  position: relative;
+}
+
+.crm-timeline-dot {
+  position: absolute;
+  left: -31px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background-color: var(--primary);
+  border: 2px solid var(--bg-main);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.crm-timeline-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.crm-timeline-title {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: var(--font-sans);
+}
+
+.crm-timeline-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Kanban Board (Drawer Card Organizers) */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  height: 100%;
+  align-items: flex-start;
+}
+
+.kanban-col {
+  background-color: rgba(92, 67, 53, 0.03); /* Soft warm wash */
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: inset 0 2px 10px rgba(35, 18, 10, 0.02);
+}
+
+.kanban-col-header {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  color: var(--text-main);
+  letter-spacing: 0.01em;
+}
+
+.kanban-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  cursor: grab;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.kanban-card::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px dashed rgba(143, 118, 102, 0.1);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.kanban-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Modal (Parchment Document Folders) */
+.crm-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(35, 18, 10, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.crm-modal {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-sm);
+  width: 520px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.crm-modal::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px dashed rgba(82, 53, 37, 0.2);
+  pointer-events: none;
+}
+
+.crm-modal-header {
+  padding: 24px 28px;
+  border-bottom: 1.5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(92, 67, 53, 0.02);
+}
+
+.crm-modal-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.crm-modal-body {
+  padding: 28px;
+  z-index: 1;
+}
+
+.crm-modal-footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: rgba(92, 67, 53, 0.02);
+}
+
+/* Helper Utility Classes */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.gap-6 { gap: 24px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mt-4 { margin-top: 16px; }
+.mt-6 { margin-top: 24px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.w-full { width: 100%; }
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.font-semibold { font-weight: 600; }
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(92, 67, 53, 0.25);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
